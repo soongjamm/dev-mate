@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+
+const [,, command, ...args] = process.argv;
+
+function printHelp() {
+  console.log(`DevMate CLI\n\n사용법:\n  dev-mate <command> [options]\n\n명령어:\n  review [경로]   변경사항 코드 리뷰 자동화\n  help           도움말 출력\n`);
+}
+
+switch (command) {
+  case 'review': {
+    const targetPath = args[0] || process.cwd();
+    console.log(`[스켈레톤] review 명령 실행: 대상 경로 = ${targetPath}`);
+    // TODO: diff 추출 및 리뷰 기능 구현
+    break;
+  }
+  case 'help':
+  case undefined:
+    printHelp();
+    break;
+  default:
+    console.error(`알 수 없는 명령어: ${command}`);
+    printHelp();
+    process.exit(1);
+} 
