@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>코드 리뷰</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-color: #f6f8fa;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      width: 100%;
+      max-width: 900px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 2rem 2.5rem;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #24292f;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+    .summary-section {
+      background: #f1f8ff;
+      border: 1px solid #c8e1ff;
+      border-radius: 6px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .summary-section h2 {
+      font-size: 1.15rem;
+      color: #0366d6;
+      margin: 1rem 0 0.5rem;
+      font-weight: 500;
+    }
+    .summary-section ul {
+      margin: 0.5rem 0 0 1.5rem;
+    }
+    .file-review {
+      margin-bottom: 2.5rem;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      background: #f6f8fa;
+    }
+    .file-header {
+      background: #f6f8fa;
+      border-bottom: 1px solid #e1e4e8;
+      padding: 0.75rem 1.25rem;
+      font-size: 1.05rem;
+      color: #586069;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+    }
+    .file-header .file-icon {
+      margin-right: 0.5em;
+      color: #6a737d;
+    }
+    .diff-block {
+      padding: 0.5rem 1.25rem 1.25rem 1.25rem;
+    }
+    .diff-line {
+      display: flex;
+      flex-direction: column;
+      /* align-items: flex-start; */
+      margin-bottom: 0.5em;
+    }
+    .line-num {
+      width: 48px;
+      text-align: right;
+      color: #b3b3b3;
+      font-size: 0.95rem;
+      padding-right: 0.5em;
+      user-select: none;
+    }
+    .code {
+      background: #fff;
+      border: 1px solid #e1e4e8;
+      border-radius: 4px;
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+      font-size: 0.98rem;
+      padding: 0.25em 0.75em;
+      margin-bottom: 0.5em;
+      min-width: 0;
+      flex: 1;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .code.add {
+      background: #e6ffed;
+      border-color: #b7ebc6;
+      color: #22863a;
+    }
+    .code.del {
+      background: #ffeef0;
+      border-color: #f5c6cb;
+      color: #cb2431;
+    }
+    .comment-bubble {
+      background: #fff;
+      border: 1px solid #d1d5da;
+      border-radius: 16px 16px 16px 0;
+      padding: 0.7em 1em;
+      /* margin-left: 0.5em; */
+      margin-top: 0.25em;
+      max-width: 350px;
+      box-shadow: 0 1px 4px rgba(27,31,35,0.04);
+      font-size: 0.97rem;
+      color: #24292e;
+      position: relative;
+    }
+    .comment-bubble:before {
+      content: '';
+      position: absolute;
+      left: -12px;
+      top: 12px;
+      width: 0;
+      height: 0;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-right: 12px solid #d1d5da;
+    }
+    .comment-bubble:after {
+      content: '';
+      position: absolute;
+      left: -10px;
+      top: 13px;
+      width: 0;
+      height: 0;
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent;
+      border-right: 10px solid #fff;
+    }
+    .review-section-title {
+      font-size: 1.2rem;
+      color: #24292f;
+      margin-bottom: 1.2rem;
+      font-weight: 600;
+      border-bottom: 1px solid #e1e4e8;
+      padding-bottom: 0.5rem;
+    }
+  </style>
+</style>
+  /* 댓글이 없는 Diff 라인 숨김 */
+  .diff-line:not(:has(.comment-bubble)) {
+    display: none;
+  }
+</head>
+<body>
+  <div class="container">
+    <h1>코드 리뷰 (GitHub 스타일)</h1>
+    <div class="summary-section">
+      <h2>주요 변경 사항 요약</h2>
+      <!-- OVERVIEW_CHANGES: 여기에 주요 변경 요약을 리스트 형태로 삽입 -->
+
+      <h2>주요 위험 요소</h2>
+      <!-- RISK_ITEMS: 여기에 주요 위험 요소를 리스트 형태로 삽입 -->
+
+      <h2>권장 조치</h2>
+      <!-- RECOMMENDATIONS: 여기에 권장 조치 목록을 삽입 -->
+    </div>
+
+    <div class="review-section-title">파일별 리뷰</div>
+    <!-- FILE_REVIEWS: 
+      각 파일별로 다음 구조를 반복해 삽입
+      <div class="file-review">
+        <div class="file-header"><span class="file-icon">📄</span>파일명.js</div>
+        <div class="diff-block">
+          <div class="diff-line">
+            <span class="line-num">123</span>
+            <span class="code add">+ 추가된 코드</span>
+            <span class="comment-bubble">리뷰 코멘트</span>
+          </div>
+          <div class="diff-line">
+            <span class="line-num">124</span>
+            <span class="code del">- 삭제된 코드</span>
+            <span class="comment-bubble">리뷰 코멘트</span>
+          </div>
+        </div>
+      </div>
+    -->
+  </div>
+</body>
+</html>
